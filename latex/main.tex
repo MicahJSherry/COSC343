@@ -11,7 +11,7 @@
 \usepackage{graphicx}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 
-\title{COSC/MATH 343 homework 1}
+\title{COSC 343: homework 1}
 \author{Micah Sherry}
 
 \begin{document}
@@ -36,18 +36,18 @@ where $d1 \neq 0$
         \\ the relative error is calculated with $$ \frac{|true - approx|}{|true|}$$ using this formula I got $$\frac{|0.0292 - 0.003|}{|0.0292|}= 0.897$$
     \end{enumerate}
 
-\item The harmonic series is known to diverge to $\infty$. The nth partial sum approaches ∞ at the same rate as ln(n). Euler’s constant is defined to be
+\item The harmonic series is known to diverge to $\infty$. The nth partial sum approaches $\infty$ at the same rate as ln(n). Euler’s constant is defined to be
 $$\gamma = \lim_{n \to \infty } \left( \sum_{k=1}^{n}\frac{1}{k} - ln(n) \right)\approx 0.57721$$
 \begin{enumerate}
     \item what is the largest value of s it would obtain? \\let $\epsilon_{mach} $ denote the machine precision   $$\epsilon_{mach} \approx 10^{-16}$$ 
     so the loop used to calculate the harmonic series will stop being accurate after $$ \frac{1}{k} < \epsilon_{mach}$$ where k is the number of iterations of the loop. 
     using algebra we find that the $$\frac{1}{\epsilon_{mach}} < k$$ meaning that using this loop the harmonic series will stop being accurate after the $10^{16}th$ iteration of the loop. to find the max value of the nth partial sum I will use the fact that $$0.57721+ln(n)\approx \sum_{k=1}^{n}\frac{1}{k}$$ Then substituting $10^{16}$ in for n we find the maximum value of s we can compute in this way is $$s \approx 37.42$$
     \item Write and test a program that uses a loop of at least 5000 steps to estimate Euler’s constant and Make a plot of the values
-\begin{figure}[hbt!]
+    \begin{figure}[hbt!]
         \centering
         \includegraphics[width=1\linewidth]{gamma.png}
-        \caption{$\gamma $ approximation}
-        \label{fig:\gamma approximation}
+        \caption{ gamma  approximation}
+        \label{fig: gamma  approximation}
     \end{figure}
     
 \end{enumerate}
@@ -57,7 +57,7 @@ $$\gamma = \lim_{n \to \infty } \left( \sum_{k=1}^{n}\frac{1}{k} - ln(n) \right)
 using the finite-difference formula
 $$ f^{\prime}(x) \approx \frac{f(x+h)-f(x)}{h}$$
 Test your program using the function tan(x) for x = 1. Determine the error by
-comparing with the square of the built-in function sec(x). 
+comparing it with the square of the built-in function sec(x). 
 for the magnitude of the error.
     \begin{figure}[hbt!]
         \centering
