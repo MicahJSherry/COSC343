@@ -49,10 +49,10 @@ def plot_error_finite_diffrence():
         hVec.append(h)
         
         #print("h =", h)
-        print("AbsError = ", AbsError)
+        #print("AbsError = ", AbsError)
         
-        print("iteration :", i )
-    
+        #print("iteration :", i )
+    print(np.min(errVec))
     plt.loglog(hVec, errVec, 'k') 
     plt.show()
 
@@ -79,10 +79,10 @@ def plot_error_finite_diffrence2():
         hVec.append(h)
         
         #print("h =", h)
-        print("AbsError = ", AbsError)
+        #print("AbsError = ", AbsError)
         
-        print("iteration :", i )
-    
+        #print("iteration :", i )
+    print(np.min(errVec))
     plt.loglog(hVec, errVec, 'k') 
     plt.show()
-plot_error_finite_diffrence2()
+plot_error_finite_diffrence()
