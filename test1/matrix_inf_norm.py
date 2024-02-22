@@ -1,8 +1,6 @@
 import numpy as np
 import matplotlib
-
-
-        
+     
 def inf_norm(matrix):
     max = 0
     for i in range(len(matrix)):
