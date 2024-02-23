@@ -17,23 +17,34 @@
 \maketitle
 
 \section{vector P-Norm}
+	write a python function that will compute the p-norm of any vector it is passed 
+	\subsection*{code:}
 	\lstinputlisting[caption= vector p-norm]{../vector_norm.py}
-	$$ \left\| \begin{pmatrix}-3 \\7 \\-3 \\-10 \\\end{pmatrix}\right\|_{3} = 11.178893071112261$$
-	$$ \left\| \begin{pmatrix}4 \\-5 \\9 \\4 \\-9 \\\end{pmatrix}\right\|_{1} = 31.0$$
-	$$ \left\| \begin{pmatrix}6 \\-5 \\-3 \\8 \\2 \\-7 \\\end{pmatrix}\right\|_{3} = 10.717315545247244$$
+	\subsection*{sample output:}
+	$$ \left\| \begin{pmatrix}7 \\6 \\1 \\-6 \\\end{pmatrix}\right\|_{3} = 9.189$$
+	$$ \left\| \begin{pmatrix}2 \\-4 \\1 \\1 \\3 \\\end{pmatrix}\right\|_{2} = 5.568$$
+	$$ \left\| \begin{pmatrix}-3 \\-10 \\5 \\-7 \\-8 \\0 \\\end{pmatrix}\right\|_{1} = 33.0$$
 \section{Matrix 1 norm}
+	write a python function that will compute the 1-norm of a matrix
+	\subsection*{code:}
 	\lstinputlisting[caption = matrix 1-norm]{../matrix_one_norm.py}
+	\subsection*{sample output:}
 	$$ \left\| \begin{pmatrix}-4 & 6 & 4 & -7 & -4 \\8 & -3 & -3 & -9 & -4 \\-2 & -5 & -7 & 0 & -4 \\-8 & 1 & -7 & -7 & -5 \\\end{pmatrix}\right\|_{1} = 23$$
 	$$ \left\| \begin{pmatrix}3 & -10 & 6 & 4 \\6 & -3 & 8 & 6 \\-9 & -4 & 10 & 6 \\5 & -7 & -1 & -3 \\\end{pmatrix}\right\|_{1} = 25$$
 	$$ \left\| \begin{pmatrix}1 & -4 & -9 & -6 & -1 \\-4 & 6 & -3 & 6 & 3 \\-5 & -10 & -9 & 8 & 1 \\0 & -10 & 0 & -7 & 5 \\\end{pmatrix}\right\|_{1} = 30$$
 	
 \section{Matrix $\infty$ norm}
+	write a python function that will compute the $\infty$-norm of a matrix
+	\subsection*{code:}
 	\lstinputlisting[caption= matrix $\infty$ norm]{../matrix_inf_norm.py}
+	\subsection*{sample output:}
 	$$ \left\| \begin{pmatrix}-4 & -5 & -6 & -2 & -9 \\-2 & 3 & -6 & -4 & 3 \\-2 & 10 & 8 & 7 & -8 \\-4 & -6 & -5 & -5 & -1 \\-7 & 5 & -4 & -4 & -3 \\\end{pmatrix}\right\|_{\infty} = 35$$
 	$$ \left\| \begin{pmatrix}7 & 6 & 0 & -1 & 3 \\0 & -7 & -3 & -9 & -3 \\-3 & -8 & 7 & 8 & 10 \\-2 & 0 & 9 & -10 & 6 \\-10 & 3 & 7 & -7 & -5 \\\end{pmatrix}\right\|_{\infty} = 36$$
 	$$ \left\| \begin{pmatrix}-9 & -9 & -2 & -4 & -7 \\-10 & 2 & 5 & 10 & 2 \\-3 & -2 & 2 & -2 & -7 \\-4 & 8 & -4 & 3 & -2 \\9 & -8 & -4 & -3 & 0 \\\end{pmatrix}\right\|_{\infty} = 31$$
-
+\pagebreak
 \section{testing and formatting code}
+	this section is for code i created to generate and format the vectors, matrices and norms.
+	it does not contain any logic for calculating the norms and is only included for completeness sake.
 	\lstinputlisting[caption=testing code]{../test.py}
 \end{document}
 

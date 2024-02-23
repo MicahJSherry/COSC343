@@ -31,7 +31,7 @@ for i in range(4,7):
     for j in range(i):
         vec.append(randint(-10, 10))
     p = randint(1,3)
-    ans = p_norm(vec, p)
+    ans  = round(p_norm(vec, p),3)
     latex = vector_to_latex(vec)
     print(pnorm_to_latex(latex ,p, ans))
 
