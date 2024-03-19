@@ -3,11 +3,11 @@ import matplotlib.pyplot as plt
 
 
 def f(x):
-    return 
+    return (x-3) * (x+3)
 def fp(x):
-    return
+    return (x + 3) + (x - 3)
 def fdp(x):
-    return 
+    return 2
 
 
 
@@ -40,7 +40,7 @@ def findAlpha(vec):
 
 
 if __name__=="__main__":
-    x, errorVec = olversMethod(23, 0 ,f=f ,fp=fp,fdp=fdp)
+    x, errorVec = olversMethod(10.3232, 3 ,f=f ,fp=fp,fdp=fdp)
     alphaVec = findAlpha(errorVec)
     print(alphaVec)
     plt.plot(alphaVec)
