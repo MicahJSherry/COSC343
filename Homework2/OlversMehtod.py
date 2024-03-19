@@ -3,11 +3,11 @@ import matplotlib.pyplot as plt
 
 
 def f(x):
-    return (x-3) * (x+3)
+    return (x-3) * np.exp(x)
 def fp(x):
-    return (x + 3) + (x - 3)
+    return (x-2) * np.exp(x)
 def fdp(x):
-    return 2
+    return (x-1) * np.exp(x)
 
 
 

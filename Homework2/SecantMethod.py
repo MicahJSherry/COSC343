@@ -11,7 +11,6 @@ def secantNewtonsMethod(x0,x1,trueroot=None,f=f, tol=1e-7, N=100):
     size = 1.0
     errorVec = []
     i = 0
-    
     while size > tol and i < N:
         print(i)
         print(x0)

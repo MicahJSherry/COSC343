@@ -3,19 +3,19 @@ import matplotlib.pyplot as plt
 
 
 def f(x):
-    return ((x - 3) ** 2) * np.exp(x)
+    return (((x - 3) ** 2) * (1 + np.exp(x)))      
 
 def fp(x):
-    return 2*(x - 3) * np.exp(x)+((x - 3) ** 2) * np.exp(x)
+    return (x-3) * ((x - 1) * np.exp(x) + 2)
 
 
-def NewtonsMethod(x0,trueroot=None, f=f,fp=fp, tol=1e-7,N=100):
+def multiplicy2_NewtonsMethod(x0,trueroot=None, f=f,fp=fp, tol=1e-7,N=100):
     size = 1.0
     errorVec = []
     i = 0
-    while (size > tol and i < N) or f(x0) != 0:
+    while (size > tol and i < N) and f(x0) != 0:
         print(size)
-        x1   = x0 - 2 * (f(x0) / fp(x0))
+        x1   = x0 -  2 * (f(x0) / fp(x0))
         print(x1)
         if trueroot is not None:
             errorVec.append(np.abs(x1 - trueroot))
@@ -38,7 +38,7 @@ def findAlpha(vec):
 
 
 if __name__=="__main__":
-    x, errorVec = NewtonsMethod(10, 3 ,f=f ,fp=fp)
+    x, errorVec = multiplicy2_NewtonsMethod(4, 3 ,f=f ,fp=fp)
     alphaVec = findAlpha(errorVec)
     print(alphaVec)
     plt.plot(alphaVec)
