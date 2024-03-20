@@ -17,7 +17,7 @@ def olversMethod(x0,trueroot=None, f=f,fp=fp, fdp=fdp, tol=1e-7,N=100):
     i = 0
     while (size > tol and i < N):
         #print(size)
-        x1   = x0 - (f(x0) / fp(x0)) - ((1/2) * (fdp(x0) / fp(x0)) * ((f(x0) / fp(x0)) ** 2))
+        x1   = x0 - (f(x0)/fp(x0)) - ((1/2)*(fdp(x0)/fp(x0)) * ((f(x0)/fp(x0))**2))
         print(i, x1)
         if trueroot is not None:
             errorVec.append(np.abs(x1 - trueroot))
@@ -40,8 +40,9 @@ def findAlpha(vec):
 
 
 if __name__=="__main__":
-    x, errorVec = olversMethod(10.3232, 3 ,f=f ,fp=fp,fdp=fdp)
+    x, errorVec = olversMethod(14.3232, 3 ,f=f ,fp=fp,fdp=fdp)
     alphaVec = findAlpha(errorVec)
     print(alphaVec)
     plt.plot(alphaVec)
     plt.show()
+    print(x)

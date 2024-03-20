@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def f(x):
-    return (x-3)* np.exp(x)
+    return (x-4)* (np.exp(x)+1)
 
 def secant(x0, x1, f=f):
     return (f(x1) - f(x0)) / (x1-x0)
@@ -10,6 +10,7 @@ def secant(x0, x1, f=f):
 
 def secantMethod(x0, x1, f=f,trueroot=None, errorVec = [], tol=1e-7, N=100):
     size = np.abs(x1 - x0)
+    
     if size <= tol:
         return x1 if trueroot is None else (x1, errorVec)
     if N <= 0:
@@ -22,7 +23,6 @@ def secantMethod(x0, x1, f=f,trueroot=None, errorVec = [], tol=1e-7, N=100):
         errorVec.append(np.abs(trueroot-x0))
         return secantMethod(x1, x2, f,trueroot, errorVec, tol, N=N-1)
     else:
-        print("hellow")
         return secantMethod(x1, x2, f, None, errorVec, tol, N=N-1)
 
 def findAlpha(vec):
@@ -34,8 +34,9 @@ def findAlpha(vec):
 
 
 if __name__=="__main__":
-    x, errorVec = secantMethod(10,9,trueroot=3)
+    x, errorVec = secantMethod(10,9,trueroot=4)
     alphaVec = findAlpha(errorVec)
+    print(x)
     plt.plot(alphaVec)
     plt.show()
     

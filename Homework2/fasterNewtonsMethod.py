@@ -14,9 +14,29 @@ def multiplicy2_NewtonsMethod(x0,trueroot=None, f=f,fp=fp, tol=1e-7,N=100):
     errorVec = []
     i = 0
     while (size > tol and i < N) and f(x0) != 0:
-        print(size)
-        x1   = x0 -  2 * (f(x0) / fp(x0))
-        print(x1)
+        
+        x1   = x0 - 2 * (f(x0) / fp(x0))
+       
+        if trueroot is not None:
+            errorVec.append(np.abs(x1 - trueroot))
+        
+        size = np.abs(x1 - x0)
+        x0   = x1
+        i   += 1 
+    
+    if trueroot is not None:
+        return x1, errorVec
+    else:
+        return x1
+    
+def NewtonsMethod(x0,trueroot=None, f=f,fp=fp, tol=1e-7,N=100):
+    size = 1.0
+    errorVec = []
+    i = 0
+    while (size > tol and i < N) and f(x0) != 0:
+        
+        x1   = x0 - (f(x0) / fp(x0))
+        
         if trueroot is not None:
             errorVec.append(np.abs(x1 - trueroot))
         
@@ -38,8 +58,15 @@ def findAlpha(vec):
 
 
 if __name__=="__main__":
-    x, errorVec = multiplicy2_NewtonsMethod(4, 3 ,f=f ,fp=fp)
-    alphaVec = findAlpha(errorVec)
-    print(alphaVec)
-    plt.plot(alphaVec)
+    x1, errorVec1 = NewtonsMethod(4, 3 ,f=f ,fp=fp)
+    x2, errorVec2 = multiplicy2_NewtonsMethod(4, 3 ,f=f ,fp=fp)
+    
+    alphaVec1 = findAlpha(errorVec1)
+    alphaVec2 = findAlpha(errorVec2)
+    print("newtons method approximation:",x1)
+    print("accelerated newtons method approximation:",x2)
+
+    plt.plot(alphaVec1)
+    plt.show()
+    plt.plot(alphaVec2)
     plt.show()
