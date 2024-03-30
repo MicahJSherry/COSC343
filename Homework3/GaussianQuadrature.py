@@ -140,11 +140,27 @@ def get_weights():
             js = Jacobian(X)
             b  = -f(X)
             s = np.linalg.solve(js,b)
+            print("X=",X,"i=",i)
             X += s
             i +=1
         return(X)
-    return vectorNewtonsMethod(np.random.rand(8,1))
+    return vectorNewtonsMethod( 10*np.random.rand(8,1))
 
-print(get_weights())
+#print(get_weights())
 
 
+from sympy import symbols, Eq, solve
+
+w1, w2, w3, w4, x1, x2, x3, x4 = symbols('w1 w2 w3 w4 x1 x2 x3 x4')
+
+eq1 = Eq(w1 + w2 + w3 + w4, 2)
+eq2 = Eq(w1*x1 + w2*x2 + w3*x3 + w4*x4, 0)
+eq3 = Eq(w1*x1**2 + w2*x2**2 + w3*x3**2 + w4*x4**2, 2/3)
+eq4 = Eq(w1*x1**3 + w2*x2**3 + w3*x3**3 + w4*x4**3, 0)
+eq5 = Eq(w1*x1**4 + w2*x2**4 + w3*x3**4 + w4*x4**4, 2/5)
+eq6 = Eq(w1*x1**5 + w2*x2**5 + w3*x3**5 + w4*x4**5, 0)
+eq7 = Eq(w1*x1**6 + w2*x2**6 + w3*x3**6 + w4*x4**6, 2/7)
+eq8 = Eq(w1*x1**7 + w2*x2**7 + w3*x3**7 + w4*x4**7, 0)
+
+solution = solve((eq1, eq2, eq3, eq4, eq5, eq6, eq7, eq8), (w1, w2, w3, w4,x1,x2,x3,x4))
+print(solution)
