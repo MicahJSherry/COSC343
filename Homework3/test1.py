@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt 
-from GaussianQuadrature import fourPointGaussianQuad, GaussianQuadrature
+from GaussianQuadrature import fourPointGaussianQuad, GaussianQuadrature, compositeQuadrature
 
 def f1(x):
     return (2*x**7 - 3*x**6 + 5*x**5 - 
@@ -21,9 +21,8 @@ if   __name__=="__main__":
     trueVal_f1 =  F1(10) - F1(-10) 
     print(trueVal_f1)
     print(fourPointGaussianQuad(f1))
-    print(GaussianQuadrature(f1,-10,10))
-    print()
+    
     trueVal_f2 =  F2(1) - F2(-1)
     print(trueVal_f2)
     print(fourPointGaussianQuad(f2))
-    print(GaussianQuadrature(f2,-1,1))
+    

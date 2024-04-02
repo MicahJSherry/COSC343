@@ -41,7 +41,7 @@
 	To use these points and weights to integrate numerically use the formula:
 	$$\int_{-1}^{1}f(x)dx \approx \sum_{i=1}^{4}w_i\times f(x_i)$$
 	\subsubsection*{Code:}
-		\lstinputlisting{../GaussianQuadrature.py}
+		\lstinputlisting[firstline=3,lastline=25]{../GaussianQuadrature.py}
 \subsection{highest exactly integrable degree polynomial}
 	What is the highest degree polynomial function that your rule can integrate exactly?
 	\\Gaussian quadrature with n points should be able to integrate all polynomials of degree $2n-1$ exactly. This comes from the fact that Gaussian quadrature with n point has $2n$ unknown variables and needs $2n$ equations to solve and the last equation in the system  $$ w_1x_1^{2n-1} + ... +w_nx_n^{2n-1} = \int_{-1}^{1}x^{2n-1}dx$$ So a four point Gaussian quadrature routine should be able to integrate all polynomials of degree 7 or less.  
@@ -49,10 +49,37 @@
 	Write code that shows your four point Gaussian Quadrature rule on [-1,1] quadrature rule will in fact integrate polynomial of this degree exactly.
 	\\To verify my code works i will be using the polynomial $$f_1(x)=2x^7 - 3x^6 + 5x^5 - 4x^4 + x^3 - 2x^2 + 3x - 1$$ and will be using the polynomial $$f_2(x)= x^6 $$
 	\subsubsection*{Code:}
-		\lstinputlisting{../TestGaussianQuadrature.py}
-	\subsubsection{output:}
+		\lstinputlisting{../test1.py}
+	\subsubsection*{output:}
 		For the first polynomial's true value I got:$$\int_{-1}^{1}f_1(x)dx= F_1(1)-F_1(-1)=-5.7904761904761894$$ 
 		and using Gaussian quadrature I got a value of $-5.790476190476198$ \\\\
 		For the second polynomial's true value I got:$$\int_{-1}^{1}f_2(x)dx= F_2(1)-F_2(-1)=0.2857142857142857$$ 
 		and using Gaussian quadrature I got a value of $0.2857142857142867$ \\
+\section{four point Gaussian quadrature on [a,b]}
+	\subsection{defining four point Gaussian quadrature on [a,b]}
+		Define a four point Gaussian Quadrature rule that can be used on the interval [a, b].\\
+		to define the four point quadrature on the interval [a,b] I took the code from the quadrature routine on [-1,1] and created a function that linearly maps points on [a,b] to a point on [-1,1] and multiplies the weights by $\frac{b-a}{2}$ which is the slope of the line used to derive the the mapping function
+	\subsubsection*{Code:}
+		\lstinputlisting[firstline=25,lastline=41]{../GaussianQuadrature.py}
+	\subsection{Testing}
+		Show that your four point quadrature rule on [a,b] integrates the same degree polynomial as the one you had defined on [-1,1].\\ 
+		
+		to see that given the same polynomial it will produce the same results i tested it on $\int_{-1}^1f_1(x)dx$ for that I got answer of $-5.790476190476198$ which is the same as my approximation above.\\
+		then I tested it on a different integral (on a different interval) 
+		$$\int_{-2}^{3} 12x^7 + x^4 - 10x^2+ 42x dx =00.833333333334$$
+		 and the approximation I got was $9500.833333333345$.
+		 
+
+
+\section{Composite quadrature}
+	Define a four point Gaussian composite quadrature rule. Use a non-polynomial test
+	function and find the order of convergence of this four point Gaussian composite
+	quadrature rule. 
+	\subsubsection*{Code:}
+		\lstinputlisting{../test2.py}
+	\subsubsection*{output:}
+	I based my composite quadrature routine based on the formula: $$\sum_{i=0}^{n-1}Gauss(f,a_{i}, a_{i+1})$$. Where n is the number of intervals and the interval [A,B] is divided into the sub-intervals $[a_{i},a{i+1}]$
+	
+	
+
 \end{document}

@@ -23,14 +23,16 @@ def fourPointGaussianQuad(f):
         area += w[i]*f(x[i])
     return area
 
-def GaussianQuadrature(f,a,b):
+def GaussianQuadrature(f,a,b): 
+    #this method workes by linearly mapping [a,b] to [-1,1] and multiplying by (b-a)/2
     w = [0.347854845137454,   0.652145154862546, 
          0.652145154862546, 0.347854845137454]
    
     x = [-0.861136311594053, -0.339981043584856, 
          0.339981043584856, 0.861136311594053]
-    slope = (b-a)/2
+    slope = (b-a)/2 
     def map(x):
+        # derived from the point-slope form of a line
         return slope * (x+1) + a
     area = 0
     for i in range(len(w)):
@@ -38,9 +40,10 @@ def GaussianQuadrature(f,a,b):
     return area
 
 
-def compositeQuadrature(f,A,B,NumInt=None):
-    if NumInt is None:
-        NumInt = int(B-A)
+def compositeQuadrature(f,A,B,intSize=1):
+    intSize = intSize if intSize <= (A-B)/2 else 1
+    NumInt = int((B-A)/intSize) 
+    print(NumInt)
     x_points= np.linspace(A,B,NumInt)
     area = 0
     for i in range(len(x_points)-1):
