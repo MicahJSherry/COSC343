@@ -57,13 +57,13 @@
 		and using Gaussian quadrature I got a value of $0.2857142857142867$ \\
 \section{four point Gaussian quadrature on [a,b]}
 	\subsection{defining four point Gaussian quadrature on [a,b]}
-		Define a four point Gaussian Quadrature rule that can be used on the interval [a, b].\\
+		Define a four point Gaussian Quadrature rule that can be used on the interval [a, b].\\\\
 		to define the four point quadrature on the interval [a,b] I took the code from the quadrature routine on [-1,1] and created a function that linearly maps points on [a,b] to a point on [-1,1] and multiplies the weights by $\frac{b-a}{2}$ which is the slope of the line used to derive the the mapping function
 	\subsubsection*{Code:}
 		\lstinputlisting[firstline=25,lastline=41]{../GaussianQuadrature.py}
 	\subsection{Testing}
-		Show that your four point quadrature rule on [a,b] integrates the same degree polynomial as the one you had defined on [-1,1].\\ 
-		
+		Show that your four point quadrature rule on [a,b] integrates the same degree polynomial as the one you had defined on [-1,1].\\\\
+		\lstinputlisting{../test2.py}
 		to see that given the same polynomial it will produce the same results i tested it on $\int_{-1}^1f_1(x)dx$ for that I got answer of $-5.790476190476198$ which is the same as my approximation above.\\
 		then I tested it on a different integral (on a different interval) 
 		$$\int_{-2}^{3} 12x^7 + x^4 - 10x^2+ 42x dx = 9500.833333333334$$
@@ -74,12 +74,27 @@
 \section{Composite quadrature}
 	Define a four point Gaussian composite quadrature rule. Use a non-polynomial test
 	function and find the order of convergence of this four point Gaussian composite
-	quadrature rule. 
-	\subsubsection*{Code:}
-		\lstinputlisting{../test2.py}
-	\subsubsection*{output:}
-	I based my composite quadrature routine based on the formula: $$\sum_{i=0}^{n-1}Gauss(f,a_{i}, a_{i+1})$$. Where n is the number of intervals and the interval [A,B] is divided into the sub-intervals $[a_{i},a{i+1}]$
+	quadrature rule. \\\\
+	I based my composite quadrature routine based on the formula: $$\sum_{i=0}^{n-1}Gauss(f,a_{i}, a_{i+1})$$. Where n is the number of intervals and the interval [A,B] is divided into the sub-intervals $[a_{i},a_{i+1}]$
 	
-	
+	\subsubsection*{quadrature routines:}
+		\lstinputlisting[firstline=25,lastline=54]{../GaussianQuadrature.py}
+	\subsubsection*{rate of convergence and test function:}
+		To find the formula for the rate of convergence we need  error terms.  the error terms are $O(h^{\alpha})$ which means:
+		$$\epsilon_h = ch^{\alpha} \text{ and } \epsilon_{\frac{h}{2}} = c\left(\frac{h}{2}\right)^{\alpha}$$
+		using those two equations we can find that 
+		$$\alpha = \frac{ln\left(\frac{\epsilon_h}{\epsilon_{\frac{h}{2}}}\right)}{ln(2)}$$
+		
+		\lstinputlisting[firstline=54,lastline=62]{../GaussianQuadrature.py}
+		To test the composite I approximated $$\int_{-10}^{2}x^2e^xdx$$ The exact value is $14.772573406430277$ and with my composite quadrature rule I got $14.77257340643028$ and using the find alpha method i found alpha to be 8
+		\lstinputlisting{../test3.py}
+		
+		\begin{figure}[hbt!]
+			\centering
+			\includegraphics[width=.75\linewidth]{alpha_plot.png}
+			\caption{convergence rate for composite quadrature}
+			\label{fig:convergence rate for composite quadrature}
+		\end{figure}
+		
 
 \end{document}

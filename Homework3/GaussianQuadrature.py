@@ -40,13 +40,23 @@ def GaussianQuadrature(f,a,b):
     return area
 
 
-def compositeQuadrature(f,A,B,intSize=1):
-    intSize = intSize if intSize <= (A-B)/2 else 1
-    NumInt = int((B-A)/intSize) 
-    print(NumInt)
-    x_points= np.linspace(A,B,NumInt)
+def compositeQuadrature(f,A,B,numInt=10):
+    if (numInt<1): 
+        raise ValueError("Cannot have a number of intervals less than 1")
+    
+    x_points= np.linspace(A,B,numInt+1)
+    #print(x_points)
     area = 0
     for i in range(len(x_points)-1):
         area += GaussianQuadrature(f,x_points[i],x_points[i+1])
     return area
+
+
+def findAlpha(errVec, fac=2):
+    alphaVec = []
+    for i in range(len(errVec)-1):
+        alphaVec.append(np.log(errVec[i]/errVec[i+1])/np.log(fac))
+    return alphaVec
+
+
      
