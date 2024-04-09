@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 
 
 
-def integrate(f,A,B, numInt=10):
-    def GaussianQuadrature(f,a,b): 
-    #this method workes by linearly mapping [a,b] to [-1,1] and multiplying by (b-a)/2
+def GaussianQuadrature(f,a,b): 
+        """ a quadrature routine that was defined on [-1,1]
+            works by linearly mapping points on [a,b] to [-1,1]"""
         w = [0.347854845137454,   0.652145154862546, 
             0.652145154862546, 0.347854845137454]
    
@@ -21,6 +21,14 @@ def integrate(f,A,B, numInt=10):
             area += slope*w[i] * f(map(x[i]))
         return area
 
+
+
+def integrate(f,A,B, numInt=10):
+    """ 
+    a quadrature routine that breaking the interval of [A,B]
+    into many subintervals then uses gausian quadrature on all the subintervals
+    """
+    
     if (numInt<1): 
         raise ValueError("Cannot have a number of intervals less than 1")
     
