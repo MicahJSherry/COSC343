@@ -1,0 +1,52 @@
+\documentclass{article}
+
+
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\lstset{language=Python}
+\title{COSC 343: Test 1}
+\author{Micah Sherry}
+
+\begin{document}
+\maketitle
+
+\section{vector P-Norm}
+	write a python function that will compute the p-norm of any vector it is passed 
+	\subsection*{code:}
+	\lstinputlisting[caption= vector p-norm]{../vector_norm.py}
+	\subsection*{sample output:}
+	$$ \left\| \begin{pmatrix}2 \\-6 \\6 \\-6 \\\end{pmatrix}\right\|_{2} = 10.583$$
+	$$ \left\| \begin{pmatrix}-10 \\0 \\7 \\9 \\3 \\\end{pmatrix}\right\|_{3} = 12.804$$
+	$$ \left\| \begin{pmatrix}-8 \\-2 \\-7 \\-4 \\-1 \\-2 \\\end{pmatrix}\right\|_{2} = 11.747$$
+
+\section{Matrix 1 norm}
+	write a python function that will compute the 1-norm of a matrix
+	\subsection*{code:}
+	\lstinputlisting[caption = matrix 1-norm]{../matrix_one_norm.py}
+	\subsection*{sample output:}
+	$$ \left\| \begin{pmatrix}-5 & 7 & 8 & -9 & 8 \\5 & -6 & -1 & -5 & 2 \\-2 & 8 & -2 & -2 & 1 \\\end{pmatrix}\right\|_{1} = 21$$
+	$$ \left\| \begin{pmatrix}-3 & 8 & -7 & -3 & 4 \\-10 & -7 & 2 & -5 & -7 \\0 & -8 & -9 & 10 & 5 \\\end{pmatrix}\right\|_{1} = 23$$
+	$$ \left\| \begin{pmatrix}-3 & 8 & -8 & -1 \\4 & -5 & -4 & -1 \\9 & 4 & -7 & 9 \\4 & 3 & 10 & 2 \\3 & -6 & -8 & -5 \\\end{pmatrix}\right\|_{1} = 37$$
+	
+\section{Matrix $\infty$ norm}
+	write a python function that will compute the $\infty$-norm of a matrix
+	\subsection*{code:}
+	\lstinputlisting[caption= matrix $\infty$ norm]{../matrix_inf_norm.py}
+	\subsection*{sample output:}
+	$$ \left\| \begin{pmatrix}1 & -2 & -9 & -5 & 8 \\3 & 10 & 2 & -8 & -9 \\1 & -10 & 5 & -2 & 8 \\-5 & 8 & 0 & -10 & 1 \\0 & 0 & 7 & -10 & -7 \\\end{pmatrix}\right\|_{\infty} = 32$$
+	$$ \left\| \begin{pmatrix}-8 & 7 & 2 \\-3 & -6 & -2 \\-9 & 6 & -4 \\\end{pmatrix}\right\|_{\infty} = 19$$
+	$$ \left\| \begin{pmatrix}2 & 0 & 5 & -1 \\-6 & 9 & -2 & 0 \\-4 & -2 & -4 & -2 \\9 & -10 & -8 & 7 \\\end{pmatrix}\right\|_{\infty} = 34$$
+
+\pagebreak
+\section{formatting code}
+	This section is for code I created to format the vectors, matrices and norms.
+	it does not contain any logic for calculating the norms and is only included for completeness sake.
+	\lstinputlisting[caption=latex code]{../Latex_generator.py}
+\end{document}
+

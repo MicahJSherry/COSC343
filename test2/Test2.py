@@ -34,17 +34,20 @@ def integrate(f,A,B, numInt=10):
 if __name__=="__main__":
     def C(x):
         def integrand(t):
-            return np.cos((np.pi*x**2)/2)
-        return integrate(f = integrand , A=0 ,B=x)
+            return np.cos((np.pi*t**2)/2)
+        return integrate(f = integrand , A=0 ,B=x, numInt=2*(1+int(np.abs(x))))
     def S(x):
         def integrand(t):
-            return np.sin((np.pi*x**2)/2)
-        return integrate(f = integrand , A=0 ,B=x)
+            return np.sin((np.pi*t**2)/2)
+        return integrate(f = integrand , A=0 ,B=x, numInt=2*(1+int(np.abs(x))))
 
-    xpts = np.linspace(0,5,200)
-    Cpts = C(xpts)
-    Spts = S(xpts)
-    plt.plot(xpts,Cpts,"")
-    plt.plot(xpts,Spts,"")
+    xpts = np.linspace(0,5,120)
+    Cpts = []
+    Spts = []
+    for x in xpts:
+        Cpts.append(C(x))
+        Spts.append(S(x))
+    plt.plot(xpts,Cpts,"--")
+    plt.plot(xpts,Spts,"-.")
     
     plt.show()
