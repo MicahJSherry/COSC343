@@ -10,43 +10,35 @@
 \usepackage{listings}
 
 \lstset{language=Python}
-\title{COSC 343: Test 1}
+\title{COSC 343: Test 2}
 \author{Micah Sherry}
 
 \begin{document}
 \maketitle
+\section{Fresnel Integrals}
+	The intesity of difracted light near a straight edge is determied by the values of the Fresnel Integrals: 
+	$$C(x) = \int_{0}^x cos(x)dx $$ and $$S(x) = \int_{0}^x sin(x)dx $$
+	Use a quadrature routine to evaluate the integrals for enough values of x to draw a smooth plot of C(x) and S(x) over the range
+	$0 \le x \le 5$
 
-\section{vector P-Norm}
-	write a python function that will compute the p-norm of any vector it is passed 
-	\subsection*{code:}
-	\lstinputlisting[caption= vector p-norm]{../vector_norm.py}
-	\subsection*{sample output:}
-	$$ \left\| \begin{pmatrix}2 \\-6 \\6 \\-6 \\\end{pmatrix}\right\|_{2} = 10.583$$
-	$$ \left\| \begin{pmatrix}-10 \\0 \\7 \\9 \\3 \\\end{pmatrix}\right\|_{3} = 12.804$$
-	$$ \left\| \begin{pmatrix}-8 \\-2 \\-7 \\-4 \\-1 \\-2 \\\end{pmatrix}\right\|_{2} = 11.747$$
-
-\section{Matrix 1 norm}
-	write a python function that will compute the 1-norm of a matrix
-	\subsection*{code:}
-	\lstinputlisting[caption = matrix 1-norm]{../matrix_one_norm.py}
-	\subsection*{sample output:}
-	$$ \left\| \begin{pmatrix}-5 & 7 & 8 & -9 & 8 \\5 & -6 & -1 & -5 & 2 \\-2 & 8 & -2 & -2 & 1 \\\end{pmatrix}\right\|_{1} = 21$$
-	$$ \left\| \begin{pmatrix}-3 & 8 & -7 & -3 & 4 \\-10 & -7 & 2 & -5 & -7 \\0 & -8 & -9 & 10 & 5 \\\end{pmatrix}\right\|_{1} = 23$$
-	$$ \left\| \begin{pmatrix}-3 & 8 & -8 & -1 \\4 & -5 & -4 & -1 \\9 & 4 & -7 & 9 \\4 & 3 & 10 & 2 \\3 & -6 & -8 & -5 \\\end{pmatrix}\right\|_{1} = 37$$
+	For my quadrature routine I used a composite four point Guassian routine. 
+	For the Fresnel integrals I set the number of subintervals to $2(|x|+1)$.     
+	To get a smooth plot on the interval [0,5] I needed to use 120 subintervals.
+\subsection{Code:}
+	\lstinputlisting[Fresnel integrals]{../Fresnel.py}
+\subsection*{Plots:}
+	\begin{figure}[hbt!]
+		\centering
+		\includegraphics[width=.75\linewidth]{C(x)_plot.png}
+		\caption{Fresnel integral C(x)}
+		\label{fig: Fresnel integrals C(x)}
+	\end{figure}
 	
-\section{Matrix $\infty$ norm}
-	write a python function that will compute the $\infty$-norm of a matrix
-	\subsection*{code:}
-	\lstinputlisting[caption= matrix $\infty$ norm]{../matrix_inf_norm.py}
-	\subsection*{sample output:}
-	$$ \left\| \begin{pmatrix}1 & -2 & -9 & -5 & 8 \\3 & 10 & 2 & -8 & -9 \\1 & -10 & 5 & -2 & 8 \\-5 & 8 & 0 & -10 & 1 \\0 & 0 & 7 & -10 & -7 \\\end{pmatrix}\right\|_{\infty} = 32$$
-	$$ \left\| \begin{pmatrix}-8 & 7 & 2 \\-3 & -6 & -2 \\-9 & 6 & -4 \\\end{pmatrix}\right\|_{\infty} = 19$$
-	$$ \left\| \begin{pmatrix}2 & 0 & 5 & -1 \\-6 & 9 & -2 & 0 \\-4 & -2 & -4 & -2 \\9 & -10 & -8 & 7 \\\end{pmatrix}\right\|_{\infty} = 34$$
-
-\pagebreak
-\section{formatting code}
-	This section is for code I created to format the vectors, matrices and norms.
-	it does not contain any logic for calculating the norms and is only included for completeness sake.
-	\lstinputlisting[caption=latex code]{../Latex_generator.py}
+	\begin{figure}[hbt!]
+		\centering
+		\includegraphics[width=.75\linewidth]{S(x)_plot.png}
+		\caption{Fresnel integral S(x)}
+		\label{fig: Fresnel integrals S(x)}
+	\end{figure}
 \end{document}
 

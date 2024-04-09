@@ -41,13 +41,19 @@ if __name__=="__main__":
             return np.sin((np.pi*t**2)/2)
         return integrate(f = integrand , A=0 ,B=x, numInt=2*(1+int(np.abs(x))))
 
-    xpts = np.linspace(0,5,120)
+    xpts = np.linspace(0,5,140)
     Cpts = []
     Spts = []
     for x in xpts:
         Cpts.append(C(x))
         Spts.append(S(x))
-    plt.plot(xpts,Cpts,"--")
-    plt.plot(xpts,Spts,"-.")
+    plt.plot(xpts,Cpts,"k")
+    plt.xlabel("x")
+    plt.ylabel("C(x)")
+    plt.show()
+    plt.xlabel("x")
+    plt.ylabel("S(x)")
+    
+    plt.plot(xpts,Spts,"k")
     
     plt.show()
