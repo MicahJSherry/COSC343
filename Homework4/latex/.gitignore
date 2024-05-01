@@ -1,0 +1,5 @@
+# ignore the auxilary files created from compiling latex pdfs
+*.log
+*.aux
+*.out
+*.gz
