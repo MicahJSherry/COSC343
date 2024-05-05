@@ -13,88 +13,138 @@
 \usepackage{listings}
 \lstset{language=Python}
 
-\title{COSC 343: homework 3}
+\title{COSC 343: homework 4 Runge-Kutta}
 \author{Micah Sherry}
 
 \begin{document}
 \maketitle
-\section{four point Gaussian quadrature rule on [-1, 1]}
-\subsection{defining four point Gaussian quadrature}
-	Define a four point Gaussian Quadrature rule on the interval [-1,1].
-	\\To define the four point Gaussian quadrature rule I solved (using sage) the system:
-	$$ w_1 + w_2 + w_3 + w_4 = 2 $$
-	$$ w_1x_1 + w_2x_2 + w_3x_3 + w_4x_4 = 0 $$
-	$$ w_1x_1^2 + w_2x_2^2 + w_3x_3^2 + w_4x_4^2 = \frac{2}{3} $$
-	$$ w_1x_1^3 + w_2x_2^3 + w_3x_3^3 + w_4x_4^3 = 0 $$
-	$$ w_1x_1^4 + w_2x_2^4 + w_3x_3^4 + w_4x_4^4 = \frac{2}{5} $$
-	$$ w_1x_1^5 + w_2x_2^5 + w_3x_3^5 + w_4x_4^5 = 0 $$
-	$$ w_1x_1^6 + w_2x_2^6 + w_3x_3^6 + w_4x_4^6 = \frac{2}{7} $$
-	$$ w_1x_1^7 + w_2x_2^7 + w_3x_3^7 + w_4x_4^7 = 0 $$
-	I got the solution (rounded to 4 decimal places for readability):
-	$$\begin{pmatrix}
-		w_1 \\	w_2 \\	w_3 \\	w_4 \\	x_1 \\	x_2 \\	x_3 \\	x_4 \\
-	\end{pmatrix}
-	\quad \approx \quad
-	\begin{pmatrix}
-		0.3479 \\0.6521 \\0.6521 \\0.3479 \\-0.8611 \\-0.34\\0.34 \\0.8611 \\
-	\end{pmatrix}$$
-	To use these points and weights to integrate numerically use the formula:
-	$$\int_{-1}^{1}f(x)dx \approx \sum_{i=1}^{4}w_i\times f(x_i)$$
-	\subsubsection*{Code:}
-		\lstinputlisting[firstline=3,lastline=25]{../GaussianQuadrature.py}
-\subsection{highest exactly integrable degree polynomial}
-	What is the highest degree polynomial function that your rule can integrate exactly?
-	\\Gaussian quadrature with n points should be able to integrate all polynomials of degree $2n-1$ exactly. This comes from the fact that Gaussian quadrature with n point has $2n$ unknown variables and needs $2n$ equations to solve and the last equation in the system  $$ w_1x_1^{2n-1} + ... +w_nx_n^{2n-1} = \int_{-1}^{1}x^{2n-1}dx$$ So a four point Gaussian quadrature routine should be able to integrate all polynomials of degree 7 or less.  
-\subsection{test of four point Gaussian quadrature on [-1,1]}
-	Write code that shows your four point Gaussian Quadrature rule on [-1,1] quadrature rule will in fact integrate polynomial of this degree exactly.
-	\\To verify my code works i will be using the polynomial $$f_1(x)=2x^7 - 3x^6 + 5x^5 - 4x^4 + x^3 - 2x^2 + 3x - 1$$ and will be using the polynomial $$f_2(x)= x^6 $$
-	\subsubsection*{Code:}
-		\lstinputlisting{../test1.py}
-	\subsubsection*{output:}
-		For the first polynomial's true value I got:$$\int_{-1}^{1}f_1(x)dx= F_1(1)-F_1(-1)=-5.7904761904761894$$ 
-		and using Gaussian quadrature I got a value of $-5.790476190476198$ \\\\
-		For the second polynomial's true value I got:$$\int_{-1}^{1}f_2(x)dx= F_2(1)-F_2(-1)=0.2857142857142857$$ 
-		and using Gaussian quadrature I got a value of $0.2857142857142867$ \\
-\section{four point Gaussian quadrature on [a,b]}
-	\subsection{defining four point Gaussian quadrature on [a,b]}
-		Define a four point Gaussian Quadrature rule that can be used on the interval [a, b].\\\\
-		to define the four point quadrature on the interval [a,b] I took the code from the quadrature routine on [-1,1] and created a function that linearly maps points on [a,b] to a point on [-1,1] and multiplies the weights by $\frac{b-a}{2}$ which is the slope of the line used to derive the the mapping function
-	\subsubsection*{Code:}
-		\lstinputlisting[firstline=25,lastline=41]{../GaussianQuadrature.py}
-	\subsection{Testing}
-		Show that your four point quadrature rule on [a,b] integrates the same degree polynomial as the one you had defined on [-1,1].\\\\
-		\lstinputlisting{../test2.py}
-		to see that given the same polynomial it will produce the same results i tested it on $\int_{-1}^1f_1(x)dx$ for that I got answer of $-5.790476190476198$ which is the same as my approximation above.\\
-		then I tested it on a different integral (on a different interval) 
-		$$\int_{-2}^{3} 12x^7 + x^4 - 10x^2+ 42x dx = 9500.833333333334$$
-		 and the approximation I got was $9500.833333333345$.
-		 
+\section{Lotka-Voltera Model}
+For class we looked at the populations of two species, a prey denoted by $y_1$ and a
+predator denoted by $y_2$, can be modeled by the autonomous, nonlinear ODE
+$$
+\bf{y}' =
+\begin{pmatrix}
+	y_1' \\ y_2'
+\end{pmatrix} = 
+\begin{pmatrix}
+	y_1(\alpha_1-\beta_1y_2) \\ y_2(-\alpha_2+\beta_2y_1)
+\end{pmatrix}
+= \bf{f(y)}
+$$
+This model is known as the Lotka-Voltera model. The parameters $\alpha_1$ and $\alpha_2$ are birth
+and death rates in isolation for prey and predators respectively. The parameters$\beta_1$ and $\beta_2$ determine the effects of the interactions of the two species. Write a program that
+uses the classical fourth order Runge-Kutta method to solve the Lotka-Voltera system.
+Integrate from t = 0 to t = 25. For class we will use the parameters $\alpha_1 = 0.5$, $\beta_1 =
+0.1$, $\alpha_2 = 1.0$, $\beta_2 = 0.02$, and the initial populations $y_1(0) = 100$, and $y_2(0) = 10$. We
+plotted each of the two populations as a function of time, and on a separate graph plot
+the trajectory of the point (y1(t), y2(t)) in the plane as a function of time and created
+a phase portrait\\
+For this assignment try other initial populations. Observe the results using the same
+type of graphs used in class. Can you find nonzero initial populations that allow for
+either of the populations to become extinct? Can you find a non-zero initial population
+that never changes.
+\subsection{code:}
+\subsubsection*{methods for Runge-Kutta}
+\lstinputlisting{../Runge_Kutta.py}
+\subsubsection*{methods for Lokta-Voltera}
+\lstinputlisting{../Lotka_Voltera.py}
 
 
-\section{Composite quadrature}
-	Define a four point Gaussian composite quadrature rule. Use a non-polynomial test
-	function and find the order of convergence of this four point Gaussian composite
-	quadrature rule. \\\\
-	I based my composite quadrature routine based on the formula: $$\sum_{i=0}^{n-1}Gauss(f,a_{i}, a_{i+1})$$. Where n is the number of intervals and the interval [A,B] is divided into the sub-intervals $[a_{i},a_{i+1}]$
+
+\subsection{initial condition that causes extinction of a population}
+consider what would happen as the number of predators approached zero. the growth rate of the prey would look like:
+$$y_1' = \alpha_1y_1$$
+this tells us that the prey would grow exponentially.
+now consider what would happen when the number of prey is going to zero. the death rate of the predators would look like:
+$$y_2' = -\alpha_2y_2$$
+this tells us that the predators would die exponentially and as I already established when the number predators goes to zero the number of prey grows exponentially. so what this tells us is there no initial condition that will cause one of the populations to go extinct. 
+\subsection{stable initial condition}
+to find initial conditions such that both populations remain constant. If a population is constant then its derivative is zero. so if we set $\bf{y} =\bf{0} $ then solve the system for $y_1$ and $y_2$
+$$
+\bf{0} = 
+\begin{pmatrix}
+	y_1(\alpha_1-\beta_1y_2) \\ y_2(-\alpha_2+\beta_2y_1)
+\end{pmatrix}
+$$
+solving this system yields (ignoring the trivial solution):
+$$
+y_1 = \frac{\alpha_2}{\beta_2} \text{ and }
+y_2 = \frac{\alpha_1}{\beta_1} 
+$$ 
+for the parameters specified above. that would make:
+$$
+y_1 = 50 \text{ and }
+y_2 = 5 
+$$  
+
+\subsection{plots}
+\begin{figure}[hbt!]
+	\centering
+	\includegraphics[width=.75\linewidth]{LV_100_10.png}
 	
-	\subsubsection*{quadrature routines:}
-		\lstinputlisting[firstline=25,lastline=54]{../GaussianQuadrature.py}
-	\subsubsection*{rate of convergence and test function:}
-		To find the formula for the rate of convergence we need  error terms.  the error terms are $O(h^{\alpha})$ which means:
-		$$\epsilon_h = ch^{\alpha} \text{ and } \epsilon_{\frac{h}{2}} = c\left(\frac{h}{2}\right)^{\alpha}$$
-		using those two equations we can find that 
-		$$\alpha = \frac{ln\left(\frac{\epsilon_h}{\epsilon_{\frac{h}{2}}}\right)}{ln(2)}$$
-		
-		\lstinputlisting[firstline=54,lastline=62]{../GaussianQuadrature.py}
-		To test the composite I approximated $$\int_{-10}^{2}x^2e^xdx$$ The exact value is $14.772573406430277$ and with my composite quadrature rule I got $14.77257340643028$ and using the find alpha method i found alpha to be 8
-		\lstinputlisting{../test3.py}
-		
-		\begin{figure}[hbt!]
-			\centering
-			\includegraphics[width=.75\linewidth]{alpha_plot.png}
-			\caption{convergence rate for composite quadrature}
-			\label{fig:convergence rate for composite quadrature}
-		\end{figure}
-		
+	\label{fig: Lotka-Voltera }
+\end{figure}
+
+\begin{figure}[hbt!]
+	\centering
+	\includegraphics[width=.75\linewidth]{LV_phase_portrait.png}
+	
+	\label{fig: Lotka voltera phase portrait}
+\end{figure}
+
+\pagebreak
+\section{Leslie-Gower Model}
+Repeat your work using the Leslie-Gower model:
+$$
+\bf{y}' =
+\begin{pmatrix}
+	y_1' \\ y_2'
+\end{pmatrix} = 
+\begin{pmatrix}
+	y_1(\alpha_1-\beta_1y_2) \\ y_2(\alpha_2-\frac{\beta_2y_2}{y_1})
+\end{pmatrix}
+= \bf{f(y)}
+$$
+use the same parameters given above with the exception of setting $\beta_2 = 10$. How does
+the solution differ between the two models?
+\subsection{code:}
+this code uses the same methods for Runge-Kutta as lokta-voltera the only thing that changes is the forcing function  
+\lstinputlisting{../Leslie_Gower.py}
+\subsection{initial condition that causes extinction of a population}
+for this model i was able to find several that led to the extinction of the predators. typically if i set the ratio (prey to predator) of initial conditions to 1.8 (or less) to 1 . 
+\subsection{stable initial condition}
+As mentioned while answering this question for the Loktka-Voltera model we need to set its derivative to zero and then solve for $y_1 \text{ and }y_2$
+$$
+\bf{0} =
+\begin{pmatrix}
+	y_1(\alpha_1-\beta_1y_2) \\ y_2(\alpha_2-\frac{\beta_2y_2}{y_1})
+\end{pmatrix}
+$$ 
+solving this system yields (ignoring the trivial solution):
+$$y_1 = \frac{\beta_2}{\alpha_2}y_2 = \frac{\beta_2}{\alpha_2}\frac{\alpha_1}{\beta_1}\text{ and } y_2 = \frac{\alpha_1}{\beta_1}$$ 
+and like with Lotka-Voltera model with the given  parameters  the solution is
+$$
+y_1 = 50 \text{ and }
+y_2 = 5 
+$$  
+\subsection{plots}
+\begin{figure}[hbt!]
+	\centering
+	\includegraphics[width=.75\linewidth]{LG_100_10.png}
+	
+	\label{fig: Leslie Gower }
+\end{figure}
+
+\begin{figure}[hbt!]
+	\centering
+	\includegraphics[width=.75\linewidth]{LG_phase_portrait.png}
+	
+	\label{fig: Leslie Gower Phase portrait}
+\end{figure}
+\subsection{how do the solutions differ between 2 models}
+In the Lokta-Voltera model the populations oscillate more than the Leslie-Gower model. both Models had an initial condition ($y_1 = 50$ and $y_2 = 5$) that caused the populations to remain constant. But only the Leslie-Gower model had an initial condition that will cause extinction.
+
+
+
 
 \end{document}
